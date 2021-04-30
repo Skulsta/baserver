@@ -1,0 +1,18 @@
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: blue;
+  text-align: center;
+}
+
+.bullets {
+  display: flex;
+}
+
+.bullets div {
+  border: 1px solid darkgreen;
+  margin: 1rem;
+  width: 6rem;
+  padding: 1rem 0;
+}
