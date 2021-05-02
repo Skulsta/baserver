@@ -1,5 +1,7 @@
 const express = require("express");
+const path = require("path");
 const { products, people } = require("./data");
+
 const app = express();
 
 app.listen(5000, () => {
@@ -19,14 +21,8 @@ app.get("/content", (req, res) => {
   res.json(products);
 });
 
-app.get("/api/content/:productId", (req, res) => {
-  const { productId } = req.params;
-  const singleProduct = products.find(
-    (product) => product.id === Number(productId)
-  );
-  !singleProduct
-    ? res.status(404).send("The product doesn't exsist")
-    : res.json(singleProduct);
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/login.html"));
 });
 
 app.use(express.static("./public"));
