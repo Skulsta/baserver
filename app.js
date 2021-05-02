@@ -3,6 +3,8 @@ const path = require("path");
 const { products, people } = require("./data");
 
 const app = express();
+app.use(express.static("./public"));
+app.use(express.urlencoded({ extended: false }));
 
 app.listen(5000, () => {
   console.log("Listening on port 5000...");
@@ -25,4 +27,7 @@ app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/login.html"));
 });
 
-app.use(express.static("./public"));
+app.post("/dashboard", (req, res) => {
+  const { name } = req.body;
+  name ? res.send(`Welcome ${name}`) : res.send("Please provide a name");
+});
