@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="centered">
+      <h1>Welcome to the Javascript way!</h1>
+      <form>
+        <input type="text" name="name" placeholder="Bill" />
+        <button type="submit">Sign in</button>
+      </form>
+      <div class="form-alert"></div>
+      <div class="result"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const result = document.querySelector(".result");
+
+      const fetchPeople = async () => {
+        try {
+          const { data } = await axios.get("/api/people");
+
+          const people = data.data.map((person) => {
+            return `<h5>${person.name}</h5>`;
+          });
+          result.innerHTML = people.join("");
+        } catch (error) {
+          result.innerHTML = `<div>Can't fetch data</div>`;
+        }
+      };
+      fetchPeople();
+
+      // submit form
+      const btn = document.querySelector("button");
+      const input = document.querySelector("input");
+      const formAlert = document.querySelector(".form-alert");
+
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const nameValue = input.value;
+        console.log(nameValue);
+
+        try {
+          const { data } = await axios.post("/api/people", { name: nameValue });
+          const h5 = document.createElement("h5");
+          h5.textContent = data.person;
+          result.appendChild(h5);
+        } catch (error) {
+          formAlert.textContent = error.response.data.msg;
+        }
+        input.value = "";
+      });
+    </script>
+  </body>
+</html>

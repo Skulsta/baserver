@@ -16,3 +16,12 @@
   width: 6rem;
   padding: 1rem 0;
 }
+
+.result {
+  display: flex;
+  justify-content: space-between;
+}
+
+h5 {
+  margin: 1rem;
+}
